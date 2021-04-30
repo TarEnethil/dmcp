@@ -39,10 +39,12 @@ def load_user_quicklinks():
 
 def include_css(styles):
     source = "cdn"
+    cache_suffix = ""
     out = ""
 
     if current_app.config["SERVE_LOCAL"] is True:
         source = "local"
+        cache_suffix = f"?av={version()}"
 
     local_url = url_for('static', filename="")
 
@@ -86,7 +88,7 @@ def include_css(styles):
     for style in styles:
         if style in s:
             for url in s[style][source]:
-                out += f'<link rel="stylesheet" href="{url}">\n'
+                out += f'<link rel="stylesheet" href="{url}{cache_suffix}">\n'
         else:
             flash(f"Unknown css-include requested: {style}", "warning")
 
@@ -96,10 +98,12 @@ def include_css(styles):
 # TODO: Fix C901
 def include_js(scripts):  # noqa: C901
     source = "cdn"
+    cache_suffix = ""
     out = ""
 
     if current_app.config["SERVE_LOCAL"] is True:
         source = "local"
+        cache_suffix = f"?av={version()}"
 
     local_url = url_for('static', filename="")
 
@@ -175,11 +179,11 @@ def include_js(scripts):  # noqa: C901
     for script in scripts:
         if script in s:
             for url in s[script][source]:
-                out += f'<script src="{url}"></script>\n'
+                out += f'<script src="{url}{cache_suffix}"></script>\n'
 
             if "helper" in s[script]:
                 for url in s[script]["helper"]:
-                    out += f'<script src="{url}"></script>\n'
+                    out += f'<script src="{url}{cache_suffix}"></script>\n'
         else:
             flash(f"Unknown javascript-include requested: {script}", "warning")
 
@@ -188,7 +192,7 @@ def include_js(scripts):  # noqa: C901
         if source == "cdn":
             moment = current_app.extensions['moment'].include_moment()
         elif source == "local":
-            loc_url = f"{local_url}js/moment-with-locales.min.js\n"
+            loc_url = f"{local_url}js/moment-with-locales.min.js{cache_suffix}\n"
             moment = current_app.extensions['moment'].include_moment(local_js=loc_url)
 
         out = f"{moment}\n{out}"
