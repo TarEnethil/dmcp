@@ -48,7 +48,7 @@ def include_css(styles):
 
     s = {
         "bootstrap": {
-            "cdn": ["https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"],
+            "cdn": ["https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"],
             "local": [f"{local_url}css/bootstrap.min.css"]
         },
         "fontawesome": {
@@ -105,10 +105,10 @@ def include_js(scripts):  # noqa: C901
 
     s = {
         "bootstrap": {
-            "cdn": ["https://code.jquery.com/jquery-3.4.1.slim.min.js",
-                    "https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js",
-                    "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"],
-            "local": [f"{local_url}js/jquery-3.4.1.min.js",
+            "cdn": ["https://code.jquery.com/jquery-3.5.1.slim.min.js",
+                    "https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js",
+                    "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"],
+            "local": [f"{local_url}js/jquery.min.js",
                       f"{local_url}js/popper.min.js",
                       f"{local_url}js/bootstrap.min.js"]
         },
